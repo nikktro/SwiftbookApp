@@ -27,10 +27,10 @@ class CourseDetailsViewController: UIViewController {
     }
     
     private func setupUI() {        
-        setStatusForFavoriteButton()
+        setFavoriteButton(with: viewModel.isFavorite.value)
         
-        viewModel.viewModelDidChange = { [weak self] viewModel in
-            self?.setStatusForFavoriteButton()
+        viewModel.isFavorite.bind { [weak self] value in
+            self?.setFavoriteButton(with: value)
         }
         courseNameLabel.text = viewModel.courseName
         numberOfLessonsLabel.text = viewModel.numberOfLessons
@@ -39,8 +39,8 @@ class CourseDetailsViewController: UIViewController {
         courseImage.image = UIImage(data: imageData)
     }
     
-    private func setStatusForFavoriteButton() {
-        favoriteButton.tintColor = viewModel.isFavorite ? .red : .gray
+    private func setFavoriteButton(with status: Bool) {
+        favoriteButton.tintColor = status ? .red : .gray
     }
 
 }
